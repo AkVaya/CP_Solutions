@@ -7,7 +7,7 @@
 #include<string.h>
 #include<map>
 #include<vector>
-#define pb push_back
+#define eb emplace_back
 #define ins insert 
 #define mp make_pair
 #define ll long long 
@@ -15,80 +15,38 @@
 #define min3(a,b,c) min(c,min(a,b))
 #define M 10000007
 using namespace std;
-vector<ll> primes;
-void simpleSieve(ll limit) 
-{ 
-    bool mark[limit+1]; 
-    memset(mark, true, sizeof(mark)); 
-    for (int p=2; p*p<limit; p++) 
-    { 
-        if (mark[p] == true) 
-        { 
-            for (int i=p*2; i<limit; i+=p) 
-                mark[i] = false; 
-        } 
-    } 
-    for (int p=2; p<limit; p++) 
-    { 
-        if (mark[p] == true) 
-        { 
-            primes.push_back(p); 
-            //cout << p << " "; 
-        } 
-    } 
-} 
-void segmentedSieve(int n) 
-{ 
-    ll limit = floor(sqrt(n))+1; 
-  
-    simpleSieve(limit);  
-    ll low = limit; 
-    ll high = 2*limit; 
-    while (low < n) 
-    { 
-        if (high >= n)  
-           high = n; 
-
-        bool mark[limit+1]; 
-        memset(mark, true, sizeof(mark)); 
-        for (ll i = 0; i < primes.size(); i++) 
-        { 
-
-            ll loLim = (low/primes[i]) * primes[i]; 
-            if (loLim < low) 
-                loLim += primes[i]; 
-
-            for (ll j=loLim; j<high; j+=primes[i]) 
-                mark[j-low] = false; 
-        }  
-        for (ll i = low; i<high; i++) 
-            if (mark[i - low] == true) 
-                primes.pb(i); 
-        low = low + limit; 
-        high = high + limit; 
-    } 
-} 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    segmentedSieve(3000000);
-    vector<ll> v;
-    for (int i = 0; i < 30000; ++i)
+    ll t,a=15000000;
+    vector<ll> v(a,0);
+    vector<ll> x,ans;
+    v[0]=1;
+    v[1]=1;
+    x.emplace_back(2);
+    for (int i = 4; i <= a; i+=2)
     {
-        for (int j = i+1; j < 30000; ++j)
+        v[i]=2;
+    }
+    for (ll i = 3; i <=a; i+=2)
+    {
+        if (v[i]==0)
         {
- //       	if((primes[i]*primes[j])>10527449)
-    //    		break;
-            v.pb(primes[i]*primes[j]);
+            x.emplace_back(i);
+            for (ll j = i*i; j <=a; j+=i)
+                v[j]=i;
         }
     }
-    sort(v.begin(), v.end());
-    ll t,a;
+    ll i=5;
+    while(ans.size()<2000000 ){
+        if(v[i] && i!= v[i]*v[i] && !v[v[i]]&& !v[i/v[i]]){
+          //  cout<<i<<endl;
+            ans.eb(i);
+        }
+        i++;
+    }
     cin>>t;
     while(t--){
         cin>>a;
-        cout<<v[a-1]<<endl;
+        cout<<ans[a-1]<<endl;
     }
-    return 0 ;
+    return 0;
 }
