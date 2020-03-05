@@ -15,22 +15,27 @@
 #define ll long long 
 #define max3(a,b,c) max(c,max(a,b))
 #define min3(a,b,c) min(c,min(a,b))
-#define M 10000007
+#define M 10000000000000000
 using namespace std;
 int main(){
     //double start_time = clock();
-    ll n,k,a;
+    ll n,k,q;
     cin>>n>>k;
-    ll a[n],dp[n];
+    ll a[n],dp[n]={0};
     for (int i = 0; i < n; ++i)
     {
         cin>>a[i];
+        dp[i]=M;
     }
     dp[0]=0;
     dp[1]=abs(a[1]-a[0]);
-    for (int i = 2; i < n; ++i)
+    for (ll i = 2; i < n; ++i)
         {
-            dp[i] = min(dp[i-1]+abs(a[i]-a[i-1]),dp[i-2]+abs(a[i]-a[i-2]));
+            q=0;
+            for (ll j = i-1;j>=0 && j>=i-k; --j)
+            {
+                dp[i] = min(dp[i],dp[j]+abs(a[j]-a[i]));
+            }
         }
     //double end_time = clock();
     //printf( "Time = %lf ms\n", ( (end_time - start_time) / CLOCKS_PER_SEC)*1000);
