@@ -19,8 +19,8 @@
 using namespace std;
 int main(){
     //double start_time = clock();
-    ll n;
-    cin>>n;
+    ll n,k,a;
+    cin>>n>>k;
     ll a[n],dp[n];
     for (int i = 0; i < n; ++i)
     {
@@ -30,6 +30,14 @@ int main(){
     dp[1]=abs(a[1]-a[0]);
     for (int i = 2; i < n; ++i)
         {
+            a=M;
+            for (int j = i+1; j <i+k && j<n; ++j)
+            {
+                if(a<dp[i-1]+abs(a[i]-a[i-k])){
+                    a=dp[i-1]+abs(a[i]-a[i-k]);
+                }
+            }
+
             dp[i] = min(dp[i-1]+abs(a[i]-a[i-1]),dp[i-2]+abs(a[i]-a[i-2]));
         }
     //double end_time = clock();
