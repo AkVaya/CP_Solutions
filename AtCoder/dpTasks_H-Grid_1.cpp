@@ -16,7 +16,7 @@ int main(){
             else dp[i][j]=0;
         }
     }
-    dp[0][0]={0};
+    dp[0][0]=0;
     bool check=false;
     for (int i = 1; i <w; ++i)
     {
