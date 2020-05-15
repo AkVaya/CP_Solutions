@@ -36,9 +36,9 @@ void solve(){
 				dp[i][j]=a[j];
 			else
 				dp[i][j]=max(a[i]-dp[i+1][j],a[j]-dp[i][j-1]);
-			cout<<dp[i][j]<< " ";
+		//	cout<<dp[i][j]<< " ";
 		}
-		cout<<endl;
+		//cout<<endl;
 	}
 	cout<<dp[0][n-1];
 }
