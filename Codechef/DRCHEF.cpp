@@ -10,7 +10,7 @@
 #include<iomanip>
 #include<queue>
 #define pb push_back
-#define Fi first
+#define Fir first
 #define Se second
 #define eb emplace_back
 #define ins insert 
@@ -23,32 +23,35 @@ using namespace std;
 typedef long long ll ;
 const ll M =1e8;
 const ll nax=3e5;
-const ll inf=1e18;
+const ll inf=9e18;
 using pii = pair<ll,ll>;
 void solve(){
     ll n,x;
     cin>>n>>x;
-    ll a[n];
-    ll ans=1;
+    ll a[n],countFromHere[n];
+    ll ans=inf;
     for (int i = 0; i < n; ++i)
     {
         cin>>a[i];
+        countFromHere[i]=0;
     }
     sort(a,a+n);
-    ll ind = lower_bound(a,a+n,x)-a;
-    ans+=(ind-1);
-    for (int i = ind; i < n; ++i)
+    for (int i = n-2; i >=0; --i)
     {
-        //cout<<a[i]<<" ";
-        ll check=0;
-        while(x<a[i]){
-            x=min(2*x,2*a[i]);
-            ans++;
-        }
-        if(!check)
-            ans++;
-        x=2*a[i];
-    //    cout<<x<<" "<<a[i]<<" "<<i<<" "<<ans<<endl;
+        ll tempx=a[i];
+        while(tempx<a[i+1])
+            tempx*=2,countFromHere[i]++;
+        if(!countFromHere[i])
+            countFromHere[i]=1;
+        countFromHere[i]+=countFromHere[i+1];
+    }
+    for (int i = 0; i < n; ++i)
+    {
+        ll tempx=x,curr=1;
+        while(tempx<a[i])
+            tempx*=2,curr++;
+        if(ans>=i+curr+countFromHere[i])
+            ans=i+curr+countFromHere[i];
     }
     cout<<ans<<endl;
 }
