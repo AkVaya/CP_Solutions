@@ -1,2 +1,2 @@
 # CP_Solutions
-Codeforces, SPOJ, UVA and solutions
+Codeforces, SPOJ, UVA and Codechef solutions
