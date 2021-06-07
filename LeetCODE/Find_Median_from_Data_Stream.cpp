@@ -11,13 +11,13 @@ public:
     
     void addNum(int num) {
         if(lower.size()==higher.size()){
-            lower.push(num);
-            if(higher.size()){
-                int val = lower.top();
-                lower.pop();
-                higher.push(val);
+            if(higher.size() && higher.top()<num){
+                higher.push(num);
                 lower.push(higher.top());
                 higher.pop();
+            }
+            else{
+                lower.push(num);
             }
         }
         else{
